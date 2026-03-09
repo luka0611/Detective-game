@@ -19,13 +19,18 @@ function render(s) {
   gameEl.classList.remove('hidden');
 
   byId('code').textContent = s.code;
-  byId('players').textContent = s.players.map((p) => p.name).join(' e ');
+  byId('players').textContent = s.players.map((p) => `${p.name} (${p.role.nome})`).join(' e ');
   byId('caseTitle').textContent = `${s.caseTitle} (${s.caseIndex + 1}/${s.caseCount})`;
   byId('caseDescription').textContent = s.caseDescription;
   byId('phase').textContent = `${s.phaseIndex + 1}/${s.phaseCount}`;
   byId('score').textContent = s.score;
   byId('phaseTitle').textContent = s.phaseTitle;
   byId('riddle').textContent = s.riddle;
+  byId('roleObjective').textContent = s.roleObjective;
+  byId('myRole').textContent = s.myRole?.nome || 'Sem papel';
+  byId('myRoleDescription').textContent = s.myRole?.descricao || '';
+  byId('teammateRole').textContent = s.teammateRoleName;
+  byId('roleClue').textContent = s.roleClue;
   byId('message').textContent = s.finished ? s.winnerMessage : '';
 }
 

@@ -7,5 +7,7 @@ input { flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #374151; b
 button { border: none; background: #2563eb; color: #fff; border-radius: 8px; padding: 10px 12px; font-weight: 700; }
 button:hover { background: #1d4ed8; }
 .riddle { background: #111827; padding: 12px; border-radius: 8px; margin: 12px 0; }
+.role-card { background: #0f1b2f; border: 1px solid #1e3a8a; padding: 12px; border-radius: 8px; margin: 12px 0; }
+.role-card h3 { margin: 0 0 8px 0; color: #93c5fd; }
 .log { max-height: 180px; overflow: auto; background: #0b1220; padding: 10px; border-radius: 8px; }
 .log p { margin: 6px 0; font-size: 14px; }
