@@ -1,0 +1,120 @@
+{
+  "id": "crime-tempestade-condominio",
+  "titulo": "Tempestade no Condomínio",
+  "dificuldade": "muito difícil",
+  "descricao": "Um homem é encontrado flutuando na piscina do condomínio de luxo onde morava, aparentemente afogado. Mas a perícia revela que ele já estava morto antes de entrar na água. Com quatro suspeitos, alibi cruzados e um esquema de fraude prestes a vir à tona, os detetives precisarão unir cada pista para revelar o assassino.",
+  "cenario": {
+    "local": "Condomínio Residencial Alto da Boa Vista, Recife — área da piscina e apartamento 1201",
+    "data": "Domingo, 8 de junho — madrugada, entre 01h e 03h",
+    "vitima": "Fábio Lacerda, 47 anos, empresário do setor de construção civil",
+    "causaMorte": "Traumatismo craniano por objeto contundente. O afogamento foi simulado post-mortem para disfarçar o homicídio",
+    "suspeitos": [
+      {
+        "nome": "Carlos Aguiar",
+        "relacao": "Sócio de Fábio; a empresa dos dois estava sob investigação por fraude contábil",
+        "alibi": "Diz ter dormido em casa com a esposa desde 23h"
+      },
+      {
+        "nome": "Valéria Nunes",
+        "relacao": "Vizinha do 1202; havia movido uma ação judicial contra Fábio por infiltração no apartamento",
+        "alibi": "Diz ter chegado de viagem às 02h e ido direto dormir"
+      },
+      {
+        "nome": "Bruno Saraiva",
+        "relacao": "Síndico e administrador do condomínio; controlava o acesso às câmeras internas",
+        "alibi": "Diz ter feito ronda às 01h e depois ficado na portaria até as 04h"
+      },
+      {
+        "nome": "Tatiana Fonseca",
+        "relacao": "Ex-namorada de Fábio; havia descoberto ser beneficiária de um seguro de vida milionário em nome dele",
+        "alibi": "Diz ter estado em uma festa na Zona Sul até 01h30 e depois ido para casa"
+      }
+    ]
+  },
+  "fases": [
+    {
+      "titulo": "Morte na Piscina",
+      "objetivo": "Confirmar que se trata de homicídio disfarçado e estabelecer o mecanismo real da morte.",
+      "enigma": "O corpo de Fábio foi encontrado pela faxineira às 06h15 flutuando na piscina. A primeira hipótese foi afogamento acidental. O que a perícia revelou que mudou completamente a natureza do caso?",
+      "pistasPorPapel": {
+        "reconstituista": "O salva-vidas de plantão observou que o corpo estava flutuando em posição atípica: face para cima, com os braços abertos simetricamente — posição impossível em afogamentos típicos, nos quais a vítima flutua face para baixo com membros contraídos. Além disso, a área ao redor da piscina não apresentava sinais de luta ou respingo violento que seria esperado em um afogamento com débito de consciência.",
+        "analista": "O laudo preliminar do IML indica: (1) ausência de água nos pulmões — Fábio não respirou dentro da água; (2) fratura occipital no crânio compatível com golpe único de objeto cilíndrico liso; (3) livor mortis nas costas e nádegas, indicando que o corpo ficou em posição horizontal por pelo menos 1 hora antes de ser colocado na piscina; (4) hora da morte estimada entre 01h15 e 02h15."
+      },
+      "resposta": "homicidio disfarçado de afogamento",
+      "dicas": [
+        "O corpo conta sua própria história — livor mortis não mente sobre posição pós-morte.",
+        "Ausência de água nos pulmões é a prova definitiva de que o afogamento foi simulado."
+      ]
+    },
+    {
+      "titulo": "O Esquema Descoberto",
+      "objetivo": "Revelar o motivo mais poderoso entre os suspeitos ligado à vida profissional da vítima.",
+      "enigma": "Fábio estava prestes a fazer uma revelação importante. Documentos encontrados em seu escritório indicam que ele havia preparado um dossiê. Quem seria prejudicado por essa revelação e o que ela continha?",
+      "pistasPorPapel": {
+        "reconstituista": "A secretária de Fábio revela que, na sexta-feira anterior ao crime, ele disse que 'ia limpar o nome dele de uma vez por todas na segunda-feira'. Ela também confirma que Fábio recebeu uma ligação de seu advogado às 17h de sexta, após a qual ficou visivelmente aliviado. Um envelope lacrado endereçado ao Ministério Público foi encontrado em sua gaveta com a inscrição 'ABRIR SOMENTE SE EU NÃO APARECER'.",
+        "analista": "O envelope foi aberto com autorização judicial. Dentro, um dossiê de 40 páginas documentando que Carlos Aguiar havia desviado R$ 6,2 milhões da empresa nos últimos dois anos, usando notas fiscais frias e empresas fantasma. Fábio descobriu o esquema há três semanas e havia contratado um auditor independente para confirmar. A denúncia ao MP enviaria Carlos para a cadeia e encerraria sua carreira empresarial definitivamente."
+      },
+      "resposta": "carlos",
+      "dicas": [
+        "Quem tinha mais a perder com uma denúncia ao Ministério Público?",
+        "R$ 6,2 milhões e uma cadeia iminente são motivação suficiente para qualquer crime."
+      ]
+    },
+    {
+      "titulo": "As Câmeras Manipuladas",
+      "objetivo": "Descobrir por que as câmeras de segurança do condomínio têm uma lacuna de 87 minutos na madrugada do crime.",
+      "enigma": "O sistema de câmeras do condomínio registra todas as áreas comuns 24 horas por dia. Mas na madrugada do crime há uma lacuna inexplicada entre 01h08 e 02h35. Quem tinha acesso e capacidade técnica para apagar esse trecho?",
+      "pistasPorPapel": {
+        "reconstituista": "O técnico de TI contratado pela polícia confirma que a gravação não foi perdida por falha técnica — foi deletada manualmente do servidor local, processo que exige login com senha de administrador. O sistema possui apenas dois usuários com esse nível de acesso: a empresa terceirizada de segurança (que forneceu log completo de acesso sem irregularidades naquela noite) e Bruno Saraiva, o síndico. Bruno nega ter acessado o sistema, mas o log interno mostra login com suas credenciais às 01h11.",
+        "analista": "A análise forense do computador da portaria recuperou fragmentos do arquivo deletado. Nos 4 minutos de vídeo parcialmente recuperados (01h09–01h13), é possível ver uma figura com capuz claro entrando pela garagem com um carrinho de compras vazio — e saindo 38 minutos depois com o carrinho aparentemente mais pesado. A resolução é baixa, mas a altura e o biotipo são compatíveis com Carlos Aguiar. O capuz impede identificação facial."
+      },
+      "resposta": "bruno e carlos",
+      "dicas": [
+        "Deletar câmeras exige acesso — quem tinha as credenciais?",
+        "A cumplicidade de alguém com acesso técnico pode estar protegendo o verdadeiro assassino."
+      ]
+    },
+    {
+      "titulo": "A Conexão Bruno-Carlos",
+      "objetivo": "Provar que Bruno agiu como cúmplice para apagar as câmeras em troca de benefício financeiro.",
+      "enigma": "Por que Bruno Saraiva apagaria as câmeras se ele não parece ter motivação para matar Fábio? Existe alguma ligação financeira entre Bruno e Carlos que explique a cumplicidade?",
+      "pistasPorPapel": {
+        "reconstituista": "Moradores do condomínio relatam que Bruno recentemente fez reformas caras em seu apartamento e comprou um carro novo — incompatíveis com seu salário de síndico. A vizinha Valéria menciona que viu Bruno e Carlos conversando reservadamente na garagem duas semanas antes do crime, o que era incomum pois os dois nunca pareciam próximos. Bruno não consegue explicar a origem dos R$ 28.000 que depositou em conta no mês anterior.",
+        "analista": "Extratos bancários obtidos por ordem judicial mostram uma transferência de R$ 28.000 da conta de uma empresa de fachada ligada a Carlos para uma conta de terceiro que, após três transferências intermediárias, chega a Bruno Saraiva. A data da transferência é três dias antes do crime — consistente com pagamento antecipado pelo serviço de eliminação das câmeras. Carlos pagou Bruno para garantir que o assassinato não fosse registrado."
+      },
+      "resposta": "bruno como cúmplice de carlos",
+      "dicas": [
+        "Dinheiro sem origem explicável geralmente tem origem criminosa.",
+        "Rastros bancários nunca desaparecem completamente — sigam o dinheiro."
+      ]
+    },
+    {
+      "titulo": "A Prova Decisiva",
+      "objetivo": "Encontrar o elo físico que conecta Carlos diretamente ao local e ao instrumento do crime.",
+      "enigma": "Com a motivação estabelecida, as câmeras apagadas e a cumplicidade de Bruno comprovada, ainda falta o vínculo físico entre Carlos e o homicídio. O que a perícia encontrou no apartamento de Fábio e no veículo de Carlos?",
+      "pistasPorPapel": {
+        "reconstituista": "No apartamento de Fábio, a porta da varanda apresentava arranhões recentes na fechadura — indicando entrada forçada. O carrinho de compras usado por Carlos na noite do crime foi encontrado abandonado no subsolo do estacionamento. No interior do carrinho, havia fibras de tecido acinzentado — da mesma cor e composição do tapete da sala de Fábio, onde provavelmente o corpo foi arrastado antes de ser levado à piscina.",
+        "analista": "A busca e apreensão no veículo de Carlos, autorizada judicialmente, revelou: (1) um fragmento de cabelo de Fábio no porta-malas (confirmado por DNA); (2) resíduos de sangue tipo AB+ — mesmo tipo sanguíneo de Fábio — na borracha de vedação da porta traseira; (3) um instrumento cilíndrico de metal (possivelmente um soco inglês ou barra curta) escondido sob o estepe, com traços de sangue e fragmentos de osso occipital compatíveis com a fratura da vítima. Carlos não consegue explicar nenhum desses itens."
+      },
+      "resposta": "carlos",
+      "dicas": [
+        "DNA e sangue no porta-malas são difíceis de refutar.",
+        "O instrumento do crime é a peça que fecha a cadeia forense."
+      ]
+    },
+    {
+      "titulo": "Tempestade Fechada",
+      "objetivo": "Concluir o caso com autoria e cumplicidade sustentadas por toda a cadeia de evidências.",
+      "enigma": "Diante do dossiê de R$ 6,2 milhões, das câmeras apagadas por conluio financeiro, da figura identificada no vídeo parcialmente recuperado, do DNA e sangue no veículo de Carlos e do instrumento do crime encontrado em seu porta-malas — quem matou Fábio Lacerda e quem o ajudou a encobrir o crime?",
+      "pistasPorPapel": {
+        "reconstituista": "Carlos Aguiar é o assassino: motivação direta (evitar prisão e perda de R$ 6,2 milhões), presença fisica confirmada pelo vídeo parcial e vestígios no veículo, acesso ao condomínio via carrinho de compras na madrugada do crime, e nenhum álibi verificável — sua esposa, única testemunha do álibi, é dependente financeira e tem conflito de interesse óbvio. Bruno Saraiva é cúmplice: apagou as câmeras em troca de R$ 28.000 transferidos de empresa ligada a Carlos três dias antes do assassinato.",
+        "analista": "A cadeia forense é completa e fechada: motivo (dossiê do desvio) → planejamento (pagamento antecipado a Bruno) → execução (entrada pela varanda, golpe letal, simulação de afogamento) → transporte (carrinho de compras, veículo de Carlos) → encobrimento (deleção das câmeras) → evidências físicas (DNA, sangue, instrumento do crime no porta-malas). Valéria e Tatiana foram eliminadas como suspeitas: Valéria chegou após a janela do crime e Tatiana foi confirmada na festa por múltiplas testemunhas e câmeras externas até 01h40."
+      },
+      "resposta": "carlos como assassino e bruno como cúmplice",
+      "dicas": [
+        "Sigam o dinheiro, o DNA e o instrumento do crime — os três convergem para o mesmo nome.",
+        "Cumplicidade exige prova própria: o rastro bancário de Bruno fecha a segunda parte do caso."
+      ]
+    }
+  ]
+}
