@@ -1,5 +1,6 @@
 const socket = io();
 const state = { roomCode: null, selectedCaseId: '' };
+const STORAGE_KEY = 'detectiveGameSession';
 
 const byId = (id) => document.getElementById(id);
 const statusEl = byId('status');
@@ -12,6 +13,49 @@ function addLog(msg) {
   const p = document.createElement('p');
   p.textContent = `• ${msg}`;
   logEl.prepend(p);
+}
+
+function loadSession() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  } catch (_error) {
+    return {};
+  }
+}
+
+function saveSession({ roomCode, playerSessionId, playerName }) {
+  const previous = loadSession();
+  const next = {
+    roomCode: roomCode || previous.roomCode || '',
+    playerSessionId: playerSessionId || previous.playerSessionId || '',
+    playerName: playerName || previous.playerName || ''
+  };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+}
+
+function clearSession() {
+  localStorage.removeItem(STORAGE_KEY);
+}
+
+function getNameInput() {
+  return byId('name').value.trim();
+}
+
+function persistPlayerName() {
+  const typedName = getNameInput();
+  if (typedName) saveSession({ playerName: typedName });
+}
+
+function handleRoomResponse(res, successMessage) {
+  statusEl.textContent = res.ok ? successMessage : res.message;
+  if (!res.ok) return;
+
+  saveSession({
+    roomCode: res.state?.code,
+    playerSessionId: res.playerSessionId,
+    playerName: getNameInput()
+  });
+  render(res.state);
 }
 
 function renderCaseSelector(s) {
@@ -58,16 +102,18 @@ function render(s) {
 }
 
 byId('create').addEventListener('click', () => {
-  socket.emit('room:create', { playerName: byId('name').value }, (res) => {
-    statusEl.textContent = res.ok ? 'Sala criada!' : res.message;
-    if (res.ok) render(res.state);
+  persistPlayerName();
+  const session = loadSession();
+  socket.emit('room:create', { playerName: getNameInput(), sessionId: session.playerSessionId }, (res) => {
+    handleRoomResponse(res, 'Sala criada!');
   });
 });
 
 byId('join').addEventListener('click', () => {
-  socket.emit('room:join', { code: byId('roomCode').value.toUpperCase(), playerName: byId('name').value }, (res) => {
-    statusEl.textContent = res.ok ? 'Você entrou na sala.' : res.message;
-    if (res.ok) render(res.state);
+  persistPlayerName();
+  const session = loadSession();
+  socket.emit('room:join', { code: byId('roomCode').value.toUpperCase(), playerName: getNameInput(), sessionId: session.playerSessionId }, (res) => {
+    handleRoomResponse(res, 'Você entrou na sala.');
   });
 });
 
@@ -101,3 +147,20 @@ byId('sendAnswer').addEventListener('click', () => {
 
 socket.on('state:update', render);
 socket.on('game:message', addLog);
+
+socket.on('connect', () => {
+  const session = loadSession();
+  if (!session.roomCode || !session.playerSessionId) return;
+
+  if (!getNameInput() && session.playerName) byId('name').value = session.playerName;
+  byId('roomCode').value = session.roomCode;
+
+  socket.emit('room:resume', { code: session.roomCode, sessionId: session.playerSessionId }, (res) => {
+    if (res?.ok) {
+      handleRoomResponse(res, 'Sessão restaurada com sucesso.');
+    } else {
+      clearSession();
+      statusEl.textContent = res?.message || 'Não foi possível restaurar sessão anterior.';
+    }
+  });
+});
