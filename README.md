@@ -59,3 +59,14 @@ git commit -m "fix: resolver conflitos de merge"
 ```
 
 > Observação: o nome certo do teste neste projeto é `test/cases.test.js` (não `server.cases.test.js`).
+
+### Validação de conflito 100%
+Para confirmar que está **0 conflitos** antes do merge:
+
+```bash
+git ls-files -u
+npm run check:conflicts
+```
+
+- Se `git ls-files -u` não retornar nada, não há conflito aberto no índice.
+- Se `npm run check:conflicts` passar, também não há marcadores de conflito nos arquivos principais.
