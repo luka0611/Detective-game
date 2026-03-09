@@ -78,6 +78,15 @@ function getCaseById(caseId) {
   return cases.find((entry) => entry.id === caseId) || null;
 }
 
+function getConsensusSelectedCaseId(room) {
+  if (room.players.length !== 2) return null;
+
+  const firstSelection = room.selectedCases[room.players[0].sessionId];
+  const secondSelection = room.selectedCases[room.players[1].sessionId];
+  if (!firstSelection || !secondSelection || firstSelection !== secondSelection) return null;
+  return firstSelection;
+}
+
 function getPublicState(room, playerSessionId) {
   const player = room.players.find((p) => p.sessionId === playerSessionId) || room.players[0];
   const teammate = room.players.find((p) => p.sessionId !== player?.sessionId);
@@ -239,14 +248,13 @@ io.on('connection', (socket) => {
     if (!room) return cb?.({ ok: false, message: 'Sala inválida.' });
     if (room.players.length !== 2) return cb?.({ ok: false, message: 'A sala precisa de dois jogadores.' });
 
-    const firstSelection = room.selectedCases[room.players[0].sessionId];
-    const secondSelection = room.selectedCases[room.players[1].sessionId];
-    if (!firstSelection || !secondSelection || firstSelection !== secondSelection) {
+    const sharedCaseId = getConsensusSelectedCaseId(room);
+    if (!sharedCaseId) {
       return cb?.({ ok: false, message: 'Os dois jogadores precisam escolher o mesmo caso.' });
     }
 
     room.gameStarted = true;
-    room.activeCaseId = firstSelection;
+    room.activeCaseId = sharedCaseId;
     room.phaseIndex = 0;
     room.hintsUsed = 0;
     room.score = 100;
@@ -259,8 +267,11 @@ io.on('connection', (socket) => {
   socket.on('game:hint', (_data, cb) => {
     const room = rooms.get(socket.data.roomCode);
     if (!room) return cb?.({ ok: false, message: 'Sala inválida.' });
+    if (!room.gameStarted) return cb?.({ ok: false, message: 'Iniciem o jogo antes de pedir dicas.' });
+
+    room.activeCaseId = room.activeCaseId || getConsensusSelectedCaseId(room);
     const activeCase = getCaseById(room.activeCaseId);
-    if (!activeCase) return cb?.({ ok: false, message: 'Selecione um caso antes de jogar.' });
+    if (!activeCase) return cb?.({ ok: false, message: 'Os dois jogadores precisam escolher o mesmo caso.' });
 
     const phase = activeCase.fases[room.phaseIndex];
     const nextHint = phase.dicas[room.hintsUsed] || 'Sem mais dicas nesta fase.';
@@ -277,8 +288,11 @@ io.on('connection', (socket) => {
     const room = rooms.get(socket.data.roomCode);
     if (!room) return cb?.({ ok: false, message: 'Sala inválida.' });
 
+    if (!room.gameStarted) return cb?.({ ok: false, message: 'Iniciem o jogo antes de responder.' });
+
+    room.activeCaseId = room.activeCaseId || getConsensusSelectedCaseId(room);
     const activeCase = getCaseById(room.activeCaseId);
-    if (!activeCase) return cb?.({ ok: false, message: 'Selecione um caso antes de jogar.' });
+    if (!activeCase) return cb?.({ ok: false, message: 'Os dois jogadores precisam escolher o mesmo caso.' });
 
     const phase = activeCase.fases[room.phaseIndex];
     if (sanitize(answer) === sanitize(phase.resposta)) {
