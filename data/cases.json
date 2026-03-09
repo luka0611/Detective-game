@@ -1,0 +1,52 @@
+[
+  {
+    "id": "crime-1",
+    "titulo": "O Roubo no Ateliê",
+    "descricao": "Uma joia desapareceu de um ateliê fechado. Descubram quem pegou e onde está escondida.",
+    "fases": [
+      {
+        "titulo": "Cena do Crime",
+        "enigma": "A joia sumiu entre 20h e 21h. Três suspeitos: Ana (saiu às 19h50), Bruno (entrou às 20h40), Carla (ficou até 20h30). Quem teve oportunidade real?",
+        "resposta": "bruno",
+        "dicas": ["A janela de tempo começa às 20h.", "Quem não estava mais no local não podia agir."]
+      },
+      {
+        "titulo": "Pista do Verniz",
+        "enigma": "Foi encontrado verniz azul na luva. Apenas um suspeito trabalhou com verniz azul naquele dia. Quem foi?",
+        "resposta": "carla",
+        "dicas": ["Nem sempre oportunidade significa culpa.", "Relatório do dia: Carla finalizou quadro com verniz azul às 20h20."]
+      },
+      {
+        "titulo": "Conclusão",
+        "enigma": "Se Bruno tinha oportunidade, mas a prova física aponta para Carla, quem roubou a joia?",
+        "resposta": "carla",
+        "dicas": ["Use prova física como desempate.", "Oportunidade + evidência = solução."]
+      }
+    ]
+  },
+  {
+    "id": "crime-2",
+    "titulo": "Mistério da Biblioteca",
+    "descricao": "Um manuscrito raro desapareceu. Vocês devem rastrear o responsável e o esconderijo.",
+    "fases": [
+      {
+        "titulo": "Registro de Entrada",
+        "enigma": "Entraram Lucas às 14h, Marina às 14h15 e Otávio às 14h45. O manuscrito sumiu às 14h30. Quem não pode ser o autor?",
+        "resposta": "otavio",
+        "dicas": ["Compare o horário do sumiço com os registros.", "Quem chegou depois não poderia agir antes."]
+      },
+      {
+        "titulo": "Código na Estante",
+        "enigma": "Bilhete: 'Procure onde termina o alfabeto'. Em qual seção está o manuscrito? (A-Z)",
+        "resposta": "z",
+        "dicas": ["A charada é literal.", "A última letra do alfabeto."]
+      },
+      {
+        "titulo": "Confissão Final",
+        "enigma": "Marina sabia o código da seção Z e foi vista com poeira antiga nas mãos. Quem levou o manuscrito?",
+        "resposta": "marina",
+        "dicas": ["Considere conhecimento do esconderijo.", "A evidência conecta pessoa e local."]
+      }
+    ]
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "name": "detective-game",
+  "version": "1.0.0",
+  "description": "Jogo cooperativo de detetive via LAN para dois celulares",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "socket.io": "^4.8.1"
+  }
+}
