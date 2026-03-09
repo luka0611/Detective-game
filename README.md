@@ -31,3 +31,31 @@ O terminal mostrará algo como `http://192.168.x.x:8080`.
 - Resposta errada: -10 pontos.
 - Pedir dica: -5 pontos.
 - Sincronização em tempo real entre os dois celulares via Socket.IO.
+
+## Se aparecer conflito de merge
+Se você viu mensagem de conflito nesses arquivos (`README.md`, `data/cases.json`, `public/app.js`, `public/index.html`, `public/styles.css` e `test/cases.test.js`), rode:
+
+```bash
+git status
+npm run check:conflicts
+```
+
+### Fluxo rápido para resolver
+1. Abra cada arquivo com conflito e remova os blocos com:
+   - `<<<<<<<`
+   - `=======`
+   - `>>>>>>>`
+2. Mantenha só a versão final correta do conteúdo.
+3. Marque como resolvido:
+
+```bash
+git add README.md data/cases.json public/app.js public/index.html public/styles.css test/cases.test.js server.js
+```
+
+4. Finalize:
+
+```bash
+git commit -m "fix: resolver conflitos de merge"
+```
+
+> Observação: o nome certo do teste neste projeto é `test/cases.test.js` (não `server.cases.test.js`).

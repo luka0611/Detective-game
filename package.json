@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "test": "node --test"
+    "test": "node --test",
+    "check:conflicts": "bash scripts/check-conflicts.sh"
   },
   "dependencies": {
     "express": "^4.19.2",
