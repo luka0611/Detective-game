@@ -1,0 +1,50 @@
+{
+  "id": "crime-galeria",
+  "titulo": "Roubo na Galeria",
+  "dificuldade": "médio",
+  "descricao": "Uma joia desapareceu durante a abertura de uma exposição. Os investigadores precisam cruzar horários e vestígios para chegar ao culpado.",
+  "fases": [
+    {
+      "titulo": "Janela de Oportunidade",
+      "objetivo": "Descobrir quem realmente teve tempo de agir no intervalo do crime.",
+      "enigma": "A joia sumiu entre 20h e 21h. Três suspeitos: Ana (saiu às 19h50), Bruno (entrou às 20h40), Carla (ficou até 20h30). Quem teve oportunidade real?",
+      "pistasPorPapel": {
+        "reconstituista": "A câmera do corredor confirma: depois de 20h30, só Bruno ainda circulava perto do cofre.",
+        "analista": "Não há digitais de Ana na fechadura após 20h. O cofre foi aberto com luvas no fim da janela."
+      },
+      "resposta": "bruno",
+      "dicas": [
+        "A janela de tempo começa às 20h.",
+        "Quem não estava mais no local não podia agir."
+      ]
+    },
+    {
+      "titulo": "Pista do Verniz",
+      "objetivo": "Comparar oportunidade com evidência física para evitar falso culpado.",
+      "enigma": "Foi encontrado verniz azul na luva. Apenas um suspeito trabalhou com verniz azul naquele dia. Quem foi?",
+      "pistasPorPapel": {
+        "reconstituista": "Bruno passou a maior parte do tempo no escritório e não entrou na ala de pintura.",
+        "analista": "No laboratório, o verniz da luva combina com o lote usado por Carla às 20h20."
+      },
+      "resposta": "carla",
+      "dicas": [
+        "Nem sempre oportunidade significa culpa.",
+        "Relatório do dia: Carla finalizou quadro com verniz azul às 20h20."
+      ]
+    },
+    {
+      "titulo": "Conclusão",
+      "objetivo": "Montar narrativa final usando as duas especialidades.",
+      "enigma": "Se Bruno tinha oportunidade, mas a prova física aponta para Carla, quem roubou a joia?",
+      "pistasPorPapel": {
+        "reconstituista": "A reconstrução mostra que Carla voltou ao cofre às 20h25 com desculpa de buscar pincéis.",
+        "analista": "As microfibras da luva e da bolsa de Carla coincidem com o estojo da joia desaparecida."
+      },
+      "resposta": "carla",
+      "dicas": [
+        "Use prova física como desempate.",
+        "Oportunidade + evidência = solução."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "id": "crime-biblioteca",
+  "titulo": "Mistério da Biblioteca",
+  "dificuldade": "médio",
+  "descricao": "Um manuscrito raro desapareceu. Só resolvem ao combinar leitura de registros e análise de vestígios.",
+  "fases": [
+    {
+      "titulo": "Registro de Entrada",
+      "objetivo": "Eliminar suspeitos pelo horário antes de analisar motivação.",
+      "enigma": "Entraram Lucas às 14h, Marina às 14h15 e Otávio às 14h45. O manuscrito sumiu às 14h30. Quem não pode ser o autor?",
+      "pistasPorPapel": {
+        "reconstituista": "A catraca travou entre 14h31 e 14h44: ninguém novo entrou nesse período.",
+        "analista": "A poeira recém-movida aparece apenas na mesa usada antes de 14h30."
+      },
+      "resposta": "otavio",
+      "dicas": [
+        "Compare o horário do sumiço com os registros.",
+        "Quem chegou depois não poderia agir antes."
+      ]
+    },
+    {
+      "titulo": "Código na Estante",
+      "objetivo": "Unir decifração de mensagem com leitura do mapa da biblioteca.",
+      "enigma": "Bilhete: 'Procure onde termina o alfabeto'. Em qual seção está o manuscrito? (A-Z)",
+      "pistasPorPapel": {
+        "reconstituista": "No mapa do salão, o corredor final termina na seção Z, perto do arquivo antigo.",
+        "analista": "A tinta do bilhete é igual à usada no marcador da seção Z."
+      },
+      "resposta": "z",
+      "dicas": [
+        "A charada é literal.",
+        "A última letra do alfabeto."
+      ]
+    },
+    {
+      "titulo": "Confissão Final",
+      "objetivo": "Fechar o caso com vínculo entre pessoa, local e prova.",
+      "enigma": "Marina sabia o código da seção Z e foi vista com poeira antiga nas mãos. Quem levou o manuscrito?",
+      "pistasPorPapel": {
+        "reconstituista": "Testemunha viu Marina sair da seção Z às 14h28 com um embrulho retangular.",
+        "analista": "A poeira da seção Z encontrada nas mãos de Marina contém fibras do mesmo tecido do manuscrito."
+      },
+      "resposta": "marina",
+      "dicas": [
+        "Considere conhecimento do esconderijo.",
+        "A evidência conecta pessoa e local."
+      ]
+    }
+  ]
+}

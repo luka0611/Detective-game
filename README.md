@@ -18,10 +18,12 @@ O terminal mostrará algo como `http://192.168.x.x:8080`.
 2. Nos dois celulares, abra o navegador e acesse o endereço mostrado.
 3. Um jogador cria a sala, o outro entra com o código.
 4. Cada pessoa recebe um papel diferente e pistas exclusivas.
-5. Compartilhem informações para resolver os **2 crimes** com fases e charadas.
+5. Ambos escolhem o mesmo caso no seletor para liberar o início.
 
 ## Mecânica
-- 2 crimes, cada um com 3 fases.
+- Casos carregados por arquivos separados em `data/cases/*.json`.
+- Seletor de caso com nome e dificuldade (médio/difícil).
+- O jogo **só inicia** quando os 2 jogadores escolhem exatamente o mesmo caso.
 - Papéis fixos e complementares:
   - **Reconstituidor de Cena**: foca em horários e movimentação.
   - **Analista Forense**: foca em evidências físicas e padrões.
