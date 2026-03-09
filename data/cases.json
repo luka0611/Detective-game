@@ -1,0 +1,97 @@
+[
+  {
+    "id": "crime-1",
+    "titulo": "O Roubo no Ateliê",
+    "descricao": "Uma joia sumiu após o fechamento do ateliê. Só dá para resolver juntando pista de campo com análise técnica.",
+    "fases": [
+      {
+        "titulo": "Fase 1 — Janela de Oportunidade",
+        "enigma": "Quem teve oportunidade de pegar a joia no horário do sumiço?",
+        "pistasPorPapel": {
+          "investigador": "No meu bloco de rondas: Ana saiu às 19h50, Bruno entrou às 20h40 e Carla ficou até 20h30.",
+          "analista": "No sistema do alarme, a joia sumiu entre 20h e 21h."
+        },
+        "resposta": "bruno",
+        "dicas": [
+          "Juntem a janela do crime com os horários de presença.",
+          "Quem não estava no local no período não teve oportunidade."
+        ]
+      },
+      {
+        "titulo": "Fase 2 — Contradição",
+        "enigma": "A oportunidade inicial pode estar errada. Quem a evidência física aponta como culpada?",
+        "pistasPorPapel": {
+          "investigador": "Encontrei uma luva com verniz azul perto da saída de emergência.",
+          "analista": "No relatório técnico: só Carla usou verniz azul para finalizar um quadro às 20h20."
+        },
+        "resposta": "carla",
+        "dicas": [
+          "Oportunidade não supera prova física específica.",
+          "Conecte o verniz encontrado com quem o utilizou."
+        ]
+      },
+      {
+        "titulo": "Fase 3 — Esconderijo",
+        "enigma": "Onde Carla escondeu a joia?",
+        "pistasPorPapel": {
+          "investigador": "Revistando o local, achei pegadas de tinta azul indo até a área de molduras.",
+          "analista": "A câmera térmica mostra abertura recente no compartimento da moldura grande."
+        },
+        "resposta": [
+          "na moldura grande",
+          "moldura grande"
+        ],
+        "dicas": [
+          "As duas pistas indicam o mesmo setor.",
+          "A resposta pode ser em linguagem natural simples."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "crime-2",
+    "titulo": "Mistério da Biblioteca",
+    "descricao": "Um manuscrito raro desapareceu. A dupla precisa cruzar pistas de observação com dedução lógica.",
+    "fases": [
+      {
+        "titulo": "Fase 1 — Quem não pode ser",
+        "enigma": "Qual suspeito não pode ter cometido o furto?",
+        "pistasPorPapel": {
+          "investigador": "Registro de entrada: Lucas 14h, Marina 14h15, Otávio 14h45.",
+          "analista": "Horário confirmado do sumiço: 14h30."
+        },
+        "resposta": "otavio",
+        "dicas": [
+          "Compare o horário do sumiço com quem já estava presente.",
+          "Quem chegou depois não consegue agir antes."
+        ]
+      },
+      {
+        "titulo": "Fase 2 — Charada do Código",
+        "enigma": "Em qual seção da biblioteca o manuscrito foi escondido? (A-Z)",
+        "pistasPorPapel": {
+          "investigador": "O bilhete anônimo dizia: 'Procure onde termina o alfabeto'.",
+          "analista": "No mapa das estantes, a seção final é marcada pela última letra."
+        },
+        "resposta": "z",
+        "dicas": [
+          "A charada é literal.",
+          "Pense na última letra do alfabeto."
+        ]
+      },
+      {
+        "titulo": "Fase 3 — Fechamento do Caso",
+        "enigma": "Quem levou o manuscrito?",
+        "pistasPorPapel": {
+          "investigador": "Vi Marina saindo da seção Z com pó antigo nas mangas.",
+          "analista": "O exame do pó nas mãos de Marina bate com a poeira do cofre da seção Z."
+        },
+        "resposta": "marina",
+        "dicas": [
+          "Cruze presença no local com compatibilidade da evidência.",
+          "Pessoa + material do esconderijo = autoria."
+        ]
+      }
+    ]
+  }
+]

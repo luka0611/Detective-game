@@ -1,0 +1,12 @@
+body { font-family: Arial, sans-serif; background: #141922; color: #f2f5ff; margin: 0; }
+.app { max-width: 820px; margin: 0 auto; padding: 20px; }
+.card { background: #1f2937; border-radius: 12px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+.hidden { display: none; }
+.row { display: flex; gap: 8px; margin: 10px 0; }
+input { flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #374151; background: #111827; color: #fff; }
+button { border: none; background: #2563eb; color: #fff; border-radius: 8px; padding: 10px 12px; font-weight: 700; }
+button:hover { background: #1d4ed8; }
+.riddle, .role-clue { background: #111827; padding: 12px; border-radius: 8px; margin: 12px 0; }
+.role-clue { border-left: 4px solid #22c55e; }
+.log { max-height: 180px; overflow: auto; background: #0b1220; padding: 10px; border-radius: 8px; }
+.log p { margin: 6px 0; font-size: 14px; }
