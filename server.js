@@ -3,6 +3,7 @@ const http = require('http');
 const { Server } = require('socket.io');
 const os = require('os');
 const path = require('path');
+const crypto = require('crypto');
 const cases = require('./data/cases/index.js');
 
 const ROLE_ORDER = ['reconstituista', 'analista'];
@@ -25,6 +26,7 @@ const io = new Server(server);
 
 const PORT = process.env.PORT || 8080;
 const rooms = new Map();
+const ROOM_TTL_MS = 1000 * 60 * 60 * 6;
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -45,6 +47,21 @@ function createRoomCode() {
   return out;
 }
 
+function createPlayer({ socketId, playerName, roleId, sessionId }) {
+  return {
+    socketId,
+    sessionId: sessionId || crypto.randomUUID(),
+    name: playerName || 'Jogador',
+    roleId,
+    connected: true,
+    lastSeenAt: Date.now()
+  };
+}
+
+function getPlayerBySession(room, playerSessionId) {
+  return room.players.find((p) => p.sessionId === playerSessionId) || null;
+}
+
 function sanitize(text) {
   return String(text || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }
@@ -61,15 +78,15 @@ function getCaseById(caseId) {
   return cases.find((entry) => entry.id === caseId) || null;
 }
 
-function getPublicState(room, playerId) {
-  const player = room.players.find((p) => p.id === playerId) || room.players[0];
-  const teammate = room.players.find((p) => p.id !== player?.id);
+function getPublicState(room, playerSessionId) {
+  const player = room.players.find((p) => p.sessionId === playerSessionId) || room.players[0];
+  const teammate = room.players.find((p) => p.sessionId !== player?.sessionId);
 
   const myRole = player ? getRoleDetails(player.roleId) : null;
   const teammateRole = teammate ? getRoleDetails(teammate.roleId) : null;
 
-  const mySelectedCaseId = getSelectedCaseId(room, player?.id);
-  const teammateSelectedCaseId = getSelectedCaseId(room, teammate?.id);
+  const mySelectedCaseId = getSelectedCaseId(room, player?.sessionId);
+  const teammateSelectedCaseId = getSelectedCaseId(room, teammate?.sessionId);
   const resolvedCase = getCaseById(room.activeCaseId || mySelectedCaseId || teammateSelectedCaseId);
   const phase = resolvedCase ? resolvedCase.fases[room.phaseIndex] : null;
 
@@ -80,9 +97,10 @@ function getPublicState(room, playerId) {
   return {
     code: room.code,
     players: room.players.map((p) => ({
-      id: p.id,
+      id: p.sessionId,
       name: p.name,
-      role: getRoleDetails(p.roleId)
+      role: getRoleDetails(p.roleId),
+      connected: p.connected
     })),
     gameStarted: room.gameStarted,
     availableCases: cases.map((entry) => ({
@@ -118,44 +136,88 @@ function getPublicState(room, playerId) {
 
 function emitRoomState(room) {
   for (const player of room.players) {
-    io.to(player.id).emit('state:update', getPublicState(room, player.id));
+    if (!player.connected || !player.socketId) continue;
+    io.to(player.socketId).emit('state:update', getPublicState(room, player.sessionId));
   }
 }
 
+function bindSocketToRoom(socket, room, player) {
+  socket.join(room.code);
+  socket.data.roomCode = room.code;
+  socket.data.playerSessionId = player.sessionId;
+  player.socketId = socket.id;
+  player.connected = true;
+  player.lastSeenAt = Date.now();
+  room.updatedAt = Date.now();
+}
+
+setInterval(() => {
+  const now = Date.now();
+  for (const [roomCode, room] of rooms.entries()) {
+    const hasConnectedPlayers = room.players.some((player) => player.connected);
+    if (hasConnectedPlayers) continue;
+    if (now - room.updatedAt >= ROOM_TTL_MS) rooms.delete(roomCode);
+  }
+}, 60 * 1000);
+
 io.on('connection', (socket) => {
-  socket.on('room:create', ({ playerName }, cb) => {
+  socket.on('room:create', ({ playerName, sessionId }, cb) => {
     let code = createRoomCode();
     while (rooms.has(code)) code = createRoomCode();
 
     const room = {
       code,
-      players: [{ id: socket.id, name: playerName || 'Jogador 1', roleId: ROLE_ORDER[0] }],
+      players: [createPlayer({ socketId: socket.id, playerName: playerName || 'Jogador 1', roleId: ROLE_ORDER[0], sessionId })],
       gameStarted: false,
       activeCaseId: null,
       selectedCases: {},
       phaseIndex: 0,
       hintsUsed: 0,
       score: 100,
-      finished: false
+      finished: false,
+      updatedAt: Date.now()
     };
 
     rooms.set(code, room);
-    socket.join(code);
-    socket.data.roomCode = code;
-    cb({ ok: true, state: getPublicState(room, socket.id) });
+    const player = room.players[0];
+    bindSocketToRoom(socket, room, player);
+    cb({ ok: true, playerSessionId: player.sessionId, state: getPublicState(room, player.sessionId) });
   });
 
-  socket.on('room:join', ({ code, playerName }, cb) => {
+  socket.on('room:join', ({ code, playerName, sessionId }, cb) => {
     const room = rooms.get((code || '').toUpperCase());
     if (!room) return cb({ ok: false, message: 'Sala não encontrada.' });
+
+    const existingPlayer = getPlayerBySession(room, sessionId);
+    if (existingPlayer) {
+      existingPlayer.name = playerName || existingPlayer.name;
+      bindSocketToRoom(socket, room, existingPlayer);
+      emitRoomState(room);
+      return cb({ ok: true, playerSessionId: existingPlayer.sessionId, state: getPublicState(room, existingPlayer.sessionId) });
+    }
+
     if (room.players.length >= 2) return cb({ ok: false, message: 'Sala já está cheia.' });
 
-    room.players.push({ id: socket.id, name: playerName || 'Jogador 2', roleId: ROLE_ORDER[1] });
-    socket.join(room.code);
-    socket.data.roomCode = room.code;
+    const usedRoles = new Set(room.players.map((player) => player.roleId));
+    const roleId = ROLE_ORDER.find((entry) => !usedRoles.has(entry)) || ROLE_ORDER[0];
+
+    const player = createPlayer({ socketId: socket.id, playerName: playerName || 'Jogador 2', roleId, sessionId });
+    room.players.push(player);
+    bindSocketToRoom(socket, room, player);
 
     emitRoomState(room);
-    return cb({ ok: true, state: getPublicState(room, socket.id) });
+    return cb({ ok: true, playerSessionId: player.sessionId, state: getPublicState(room, player.sessionId) });
+  });
+
+  socket.on('room:resume', ({ code, sessionId }, cb) => {
+    const room = rooms.get((code || '').toUpperCase());
+    if (!room) return cb?.({ ok: false, message: 'Sala não encontrada.' });
+    const player = getPlayerBySession(room, sessionId);
+    if (!player) return cb?.({ ok: false, message: 'Sessão expirada para esta sala.' });
+
+    bindSocketToRoom(socket, room, player);
+    emitRoomState(room);
+    return cb?.({ ok: true, playerSessionId: player.sessionId, state: getPublicState(room, player.sessionId) });
   });
 
   socket.on('case:select', ({ caseId }, cb) => {
@@ -166,7 +228,8 @@ io.on('connection', (socket) => {
     const selectedCase = getCaseById(caseId);
     if (!selectedCase) return cb?.({ ok: false, message: 'Caso inválido.' });
 
-    room.selectedCases[socket.id] = selectedCase.id;
+    room.selectedCases[socket.data.playerSessionId] = selectedCase.id;
+    room.updatedAt = Date.now();
     emitRoomState(room);
     return cb?.({ ok: true });
   });
@@ -176,8 +239,8 @@ io.on('connection', (socket) => {
     if (!room) return cb?.({ ok: false, message: 'Sala inválida.' });
     if (room.players.length !== 2) return cb?.({ ok: false, message: 'A sala precisa de dois jogadores.' });
 
-    const firstSelection = room.selectedCases[room.players[0].id];
-    const secondSelection = room.selectedCases[room.players[1].id];
+    const firstSelection = room.selectedCases[room.players[0].sessionId];
+    const secondSelection = room.selectedCases[room.players[1].sessionId];
     if (!firstSelection || !secondSelection || firstSelection !== secondSelection) {
       return cb?.({ ok: false, message: 'Os dois jogadores precisam escolher o mesmo caso.' });
     }
@@ -188,6 +251,7 @@ io.on('connection', (socket) => {
     room.hintsUsed = 0;
     room.score = 100;
     room.finished = false;
+    room.updatedAt = Date.now();
     emitRoomState(room);
     cb?.({ ok: true });
   });
@@ -202,7 +266,8 @@ io.on('connection', (socket) => {
     const nextHint = phase.dicas[room.hintsUsed] || 'Sem mais dicas nesta fase.';
     room.hintsUsed += 1;
     room.score = Math.max(0, room.score - 5);
-    const requester = room.players.find((p) => p.id === socket.id)?.name || 'Um jogador';
+    const requester = room.players.find((p) => p.sessionId === socket.data.playerSessionId)?.name || 'Um jogador';
+    room.updatedAt = Date.now();
     io.to(room.code).emit('game:message', `${requester} pediu dica: ${nextHint}`);
     emitRoomState(room);
     cb?.({ ok: true, hint: nextHint });
@@ -234,20 +299,23 @@ io.on('connection', (socket) => {
       emitRoomState(room);
       cb?.({ ok: true, correct: false });
     }
+    room.updatedAt = Date.now();
   });
 
   socket.on('disconnect', () => {
     const { roomCode } = socket.data;
     if (!roomCode || !rooms.has(roomCode)) return;
     const room = rooms.get(roomCode);
-    room.players = room.players.filter((p) => p.id !== socket.id);
-    delete room.selectedCases[socket.id];
-    if (room.players.length === 0) {
-      rooms.delete(roomCode);
-    } else {
-      emitRoomState(room);
-      io.to(roomCode).emit('game:message', 'Um jogador desconectou.');
-    }
+    const player = room.players.find((entry) => entry.socketId === socket.id);
+    if (!player) return;
+
+    player.connected = false;
+    player.socketId = null;
+    player.lastSeenAt = Date.now();
+    room.updatedAt = Date.now();
+
+    emitRoomState(room);
+    io.to(roomCode).emit('game:message', 'Um jogador desconectou. A sessão ficará disponível para reconexão.');
   });
 });
 
