@@ -1,0 +1,50 @@
+{
+  "id": "crime-elize",
+  "titulo": "Cobertura da Serra",
+  "dificuldade": "difícil",
+  "descricao": "Homicídio com ocultação de corpo inspirado em casos reais brasileiros. As pistas são separadas por papel para forçar colaboração até o nome do suspeito.",
+  "fases": [
+    {
+      "titulo": "Últimos Movimentos",
+      "objetivo": "Reconstruir a linha do tempo da vítima com provas digitais e presença física.",
+      "enigma": "A vítima entrou no elevador às 21h12 e nunca mais foi vista saindo. Entre os suspeitos Bianca (esposa), Davi (motorista) e Mauro (segurança), quem permaneceu com ela na cobertura durante toda a janela crítica?",
+      "pistasPorPapel": {
+        "reconstituista": "Registro do elevador mostra apenas Bianca retornando ao apartamento após 21h10; não há nova descida até depois da meia-noite.",
+        "analista": "Manchas de sangue diluído no banheiro da suíte contêm DNA da vítima e foram limpas com produto recente."
+      },
+      "resposta": "bianca",
+      "dicas": [
+        "Feche a cronologia antes de interpretar motivação.",
+        "Presença contínua no local pesa muito em crimes sem testemunha externa."
+      ]
+    },
+    {
+      "titulo": "Ocultação de Provas",
+      "objetivo": "Identificar quem teve controle logístico da remoção do corpo.",
+      "enigma": "Partes do corpo foram encontradas em malas idênticas às da cobertura. Quem tinha domínio direto dessas malas e do veículo usado no deslocamento noturno?",
+      "pistasPorPapel": {
+        "reconstituista": "Câmeras de garagem gravam Bianca saindo com duas malas grandes às 00h43 e retornando sozinha às 03h10.",
+        "analista": "Fibras internas das malas combinam com tapete do porta-malas do carro conduzido por Bianca naquela noite."
+      },
+      "resposta": "bianca",
+      "dicas": [
+        "Procure o elo entre objeto de ocultação e trajeto.",
+        "Vestígio de fibra costuma ser decisivo para vínculo material."
+      ]
+    },
+    {
+      "titulo": "Suspeito Principal",
+      "objetivo": "Concluir o caso com autoria sustentada por cadeia de custódia.",
+      "enigma": "Diante da linha do tempo fechada, limpeza de sangue e transporte das malas, qual é o suspeito principal do homicídio e da ocultação do cadáver?",
+      "pistasPorPapel": {
+        "reconstituista": "Não há evidência de entrada de terceiros no apartamento no período do crime; a narrativa externa não se sustenta.",
+        "analista": "DNA, luminol e rastros no veículo convergem para a mesma pessoa com acesso exclusivo ao local e ao material de ocultação."
+      },
+      "resposta": "bianca",
+      "dicas": [
+        "Combine oportunidade, ação e vestígio em uma única autoria.",
+        "Quando todas as provas convergem, a hipótese alternativa perde força."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "id": "crime-suzane",
+  "titulo": "Mansão dos Cravos",
+  "dificuldade": "difícil",
+  "descricao": "Caso de homicídio familiar inspirado em investigações brasileiras de grande repercussão. Cada jogador recebe provas diferentes e só a conversa entre vocês revela quem articulou o crime.",
+  "fases": [
+    {
+      "titulo": "Entrada sem Arrombamento",
+      "objetivo": "Usar vestígios de acesso para descobrir quem facilitou a entrada dos executores.",
+      "enigma": "A perícia não encontrou sinais de arrombamento no portão e na porta principal. Entre os suspeitos Helena (funcionária), Eduardo (vizinho) e Clara (filha), quem tinha condição real de liberar o acesso sem chamar atenção?",
+      "pistasPorPapel": {
+        "reconstituista": "Câmeras da rua registram dois homens entrando às 23h48 sem hesitar na rota interna, como se tivessem instruções precisas do imóvel.",
+        "analista": "Não há marcas de ferramenta nos pontos de entrada e a trava eletrônica foi aberta com senha correta na primeira tentativa."
+      },
+      "resposta": "clara",
+      "dicas": [
+        "Sem arrombamento normalmente indica acesso autorizado.",
+        "Quem conhece rotinas e senha tem vantagem na execução."
+      ]
+    },
+    {
+      "titulo": "Quebra de Cena",
+      "objetivo": "Diferenciar encenação de crime patrimonial de um homicídio planejado.",
+      "enigma": "A sala foi revirada, mas objetos caros ficaram intactos. Quem teria maior interesse em simular latrocínio para desviar a investigação: Helena, Eduardo ou Clara?",
+      "pistasPorPapel": {
+        "reconstituista": "A desordem começa só depois do horário estimado das agressões, sugerindo manipulação posterior da cena.",
+        "analista": "Impressões de Clara aparecem em gavetas abertas após o horário da morte, apesar de ela afirmar que não entrou na sala."
+      },
+      "resposta": "clara",
+      "dicas": [
+        "Pergunte: o que foi mexido e o que realmente foi levado?",
+        "Inconsistências de depoimento costumam denunciar encenação."
+      ]
+    },
+    {
+      "titulo": "Mando e Execução",
+      "objetivo": "Conectar planejamento, oportunidade e evidência material ao suspeito central.",
+      "enigma": "Com acesso sem arrombamento, cena adulterada e contradições em depoimento, quem é o principal suspeito de ter articulado o homicídio?",
+      "pistasPorPapel": {
+        "reconstituista": "Mensagens apagadas de Clara para os executores coincidem com a janela de chegada e fuga.",
+        "analista": "Resíduos de pólvora na roupa de um executor são compatíveis com munição guardada em armário ao qual Clara tinha acesso exclusivo."
+      },
+      "resposta": "clara",
+      "dicas": [
+        "Articulador costuma aparecer na logística, não só na execução.",
+        "Cadeia de provas vale mais que uma confissão isolada."
+      ]
+    }
+  ]
+}

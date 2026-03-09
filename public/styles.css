@@ -1,14 +1,144 @@
-body { font-family: Arial, sans-serif; background: #141922; color: #f2f5ff; margin: 0; }
-.app { max-width: 760px; margin: 0 auto; padding: 20px; }
-.card { background: #1f2937; border-radius: 12px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+:root {
+  --bg: #0b1020;
+  --card: #141c31;
+  --card-soft: #1b2642;
+  --text: #e6ecff;
+  --muted: #a6b2d8;
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: Inter, Arial, sans-serif;
+  background: radial-gradient(circle at top, #131d39 0%, var(--bg) 58%);
+  color: var(--text);
+  margin: 0;
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 24px 16px 36px;
+}
+
+h1 { margin-bottom: 8px; }
+
+.intro {
+  margin-top: 0;
+  color: var(--muted);
+}
+
+.card {
+  background: linear-gradient(180deg, var(--card) 0%, #10182b 100%);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(158, 179, 230, 0.14);
+}
+
 .hidden { display: none; }
-.row { display: flex; gap: 8px; margin: 10px 0; }
-input, select { flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #374151; background: #111827; color: #fff; }
-button { border: none; background: #2563eb; color: #fff; border-radius: 8px; padding: 10px 12px; font-weight: 700; }
-button:hover { background: #1d4ed8; }
-.riddle { background: #111827; padding: 12px; border-radius: 8px; margin: 12px 0; }
-.selector-card { background: #10291c; border: 1px solid #14532d; padding: 12px; border-radius: 8px; margin: 12px 0; }
-.role-card { background: #0f1b2f; border: 1px solid #1e3a8a; padding: 12px; border-radius: 8px; margin: 12px 0; }
-.role-card h3 { margin: 0 0 8px 0; color: #93c5fd; }
-.log { max-height: 180px; overflow: auto; background: #0b1220; padding: 10px; border-radius: 8px; }
+
+.row {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+input, select {
+  flex: 1;
+  padding: 11px 12px;
+  border-radius: 10px;
+  border: 1px solid #33415f;
+  background: #0b1326;
+  color: #fff;
+}
+
+button {
+  border: none;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px 13px;
+  font-weight: 700;
+  transition: background 0.2s ease;
+}
+
+button:hover { background: var(--primary-hover); }
+
+.riddle,
+.selector-card,
+.role-card {
+  padding: 12px;
+  border-radius: 12px;
+  margin: 12px 0;
+}
+
+.riddle {
+  background: #0b1326;
+  border: 1px solid #25314f;
+}
+
+.selector-card {
+  background: #0f2b21;
+  border: 1px solid #1f6445;
+}
+
+.role-card {
+  background: var(--card-soft);
+  border: 1px solid #2e4f98;
+}
+
+.role-card h3 {
+  margin: 0 0 8px;
+  color: #a7cbff;
+}
+
+.tag-private {
+  display: inline-block;
+  font-size: 13px;
+  margin: 2px 0 10px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(59, 130, 246, 0.2);
+  border: 1px solid rgba(147, 197, 253, 0.5);
+}
+
+.log {
+  max-height: 180px;
+  overflow: auto;
+  background: #0b1220;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #2a3657;
+}
+
 .log p { margin: 6px 0; font-size: 14px; }
+
+@media (max-width: 640px) {
+  .app { padding: 14px 10px 24px; }
+
+  h1 { font-size: 1.5rem; }
+
+  .card {
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  button,
+  input,
+  select {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  #game p {
+    line-height: 1.45;
+  }
+}

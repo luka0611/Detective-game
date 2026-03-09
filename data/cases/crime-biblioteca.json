@@ -19,17 +19,17 @@
       ]
     },
     {
-      "titulo": "Código na Estante",
-      "objetivo": "Unir decifração de mensagem com leitura do mapa da biblioteca.",
-      "enigma": "Bilhete: 'Procure onde termina o alfabeto'. Em qual seção está o manuscrito? (A-Z)",
+      "titulo": "Vestígio no Arquivo",
+      "objetivo": "Cruzar bilhete e vestígios físicos para identificar quem escondeu o manuscrito.",
+      "enigma": "No arquivo antigo foi encontrado um bilhete com tinta azul e poeira de estante rara nas mãos de um suspeito. Quem ocultou o manuscrito no arquivo: Lucas, Marina ou Otávio?",
       "pistasPorPapel": {
-        "reconstituista": "No mapa do salão, o corredor final termina na seção Z, perto do arquivo antigo.",
-        "analista": "A tinta do bilhete é igual à usada no marcador da seção Z."
+        "reconstituista": "No mapa de circulação, apenas Marina passou pelo corredor do arquivo entre 14h20 e 14h30.",
+        "analista": "A tinta do bilhete coincide com a caneta encontrada na bolsa de Marina e a poeira do arquivo está no punho do casaco dela."
       },
-      "resposta": "z",
+      "resposta": "marina",
       "dicas": [
-        "A charada é literal.",
-        "A última letra do alfabeto."
+        "Bilhete e poeira devem apontar para a mesma pessoa.",
+        "Considere quem teve presença no corredor correto na janela do sumiço."
       ]
     },
     {
