@@ -1,0 +1,50 @@
+{
+  "id": "crime-kunanan",
+  "titulo": "Quarto Trancado de Kunanan",
+  "dificuldade": "difícil",
+  "descricao": "Baseado no caso real de John Wayne Gacy e no trabalho investigativo em Kunanan, Illinois. Vocês reabrem um dos episódios mais complexos de vítimas desaparecidas para identificar a ordem de ocultação de provas.",
+  "fases": [
+    {
+      "titulo": "Cronologia Fragmentada",
+      "objetivo": "Reconstruir a sequência correta dos desaparecimentos a partir de registros incompletos.",
+      "enigma": "Três vítimas desapareceram em semanas próximas. Registros: Vítima A foi vista após Vítima B, Vítima C desapareceu antes da reforma da casa, e a reforma começou depois de B. Qual vítima desapareceu primeiro?",
+      "pistasPorPapel": {
+        "reconstituista": "Se A foi vista depois de B, então B não pode ser a última na sequência.",
+        "analista": "Amostras de solo abaixo da estrutura reformada contêm fibras da roupa de C em camada mais antiga."
+      },
+      "resposta": "vitima c",
+      "dicas": [
+        "Use a reforma como marco temporal fixo.",
+        "Camada mais antiga no solo aponta evento anterior."
+      ]
+    },
+    {
+      "titulo": "Padrão de Transporte",
+      "objetivo": "Determinar o veículo usado para o transporte sem testemunha direta.",
+      "enigma": "Foram achados microfragmentos de tinta automotiva azul-petróleo e fibras de carpete industrial. Entre os veículos suspeitos — sedã branco, van azul-petróleo, picape vermelha — qual foi usado?",
+      "pistasPorPapel": {
+        "reconstituista": "A rota provável exige espaço interno para conter a vítima sem ser notado por 20 minutos.",
+        "analista": "O perfil químico da tinta coincide com lote usado em vans utilitárias da época; o carpete é típico de compartimento traseiro fechado."
+      },
+      "resposta": "van azul-petroleo",
+      "dicas": [
+        "Conforto e discrição importam para o trajeto.",
+        "A combinação de tinta + carpete reduz muito as opções."
+      ]
+    },
+    {
+      "titulo": "Fechamento do Quarto Trancado",
+      "objetivo": "Consolidar cadeia de evidências para uma conclusão inequívoca.",
+      "enigma": "Com a vítima C como primeira, transporte por van azul-petróleo e uso do espaço reformado para ocultação, qual hipótese final melhor explica o padrão criminoso: ato impulsivo isolado ou método serial planejado?",
+      "pistasPorPapel": {
+        "reconstituista": "Há repetição de abordagem em dias semelhantes, mesma janela noturna e mesma rota de retorno.",
+        "analista": "Vestígios materiais repetidos em múltiplos episódios indicam procedimento padronizado, não evento único."
+      },
+      "resposta": "metodo serial planejado",
+      "dicas": [
+        "Procure repetição operacional.",
+        "Quando o padrão se repete, a tese de impulsividade perde força."
+      ]
+    }
+  ]
+}

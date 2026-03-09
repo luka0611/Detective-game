@@ -3,7 +3,7 @@ const http = require('http');
 const { Server } = require('socket.io');
 const os = require('os');
 const path = require('path');
-const cases = require('./data/cases.json');
+const cases = require('./data/cases/index.js');
 
 const ROLE_ORDER = ['reconstituista', 'analista'];
 const ROLE_DETAILS = {
@@ -53,14 +53,29 @@ function getRoleDetails(roleId) {
   return ROLE_DETAILS[roleId] || ROLE_DETAILS.reconstituista;
 }
 
+function getSelectedCaseId(room, playerId) {
+  return room.selectedCases[playerId] || null;
+}
+
+function getCaseById(caseId) {
+  return cases.find((entry) => entry.id === caseId) || null;
+}
+
 function getPublicState(room, playerId) {
-  const caseData = cases[room.caseIndex];
-  const phase = caseData.fases[room.phaseIndex];
   const player = room.players.find((p) => p.id === playerId) || room.players[0];
   const teammate = room.players.find((p) => p.id !== player?.id);
 
   const myRole = player ? getRoleDetails(player.roleId) : null;
   const teammateRole = teammate ? getRoleDetails(teammate.roleId) : null;
+
+  const mySelectedCaseId = getSelectedCaseId(room, player?.id);
+  const teammateSelectedCaseId = getSelectedCaseId(room, teammate?.id);
+  const resolvedCase = getCaseById(room.activeCaseId || mySelectedCaseId || teammateSelectedCaseId);
+  const phase = resolvedCase ? resolvedCase.fases[room.phaseIndex] : null;
+
+  const bothPlayersConnected = room.players.length === 2;
+  const bothSelected = Boolean(mySelectedCaseId && teammateSelectedCaseId);
+  const sameCaseSelected = mySelectedCaseId && teammateSelectedCaseId && mySelectedCaseId === teammateSelectedCaseId;
 
   return {
     code: room.code,
@@ -70,16 +85,28 @@ function getPublicState(room, playerId) {
       role: getRoleDetails(p.roleId)
     })),
     gameStarted: room.gameStarted,
-    caseTitle: caseData.titulo,
-    caseDescription: caseData.descricao,
-    caseIndex: room.caseIndex,
-    caseCount: cases.length,
+    availableCases: cases.map((entry) => ({
+      id: entry.id,
+      titulo: entry.titulo,
+      dificuldade: entry.dificuldade
+    })),
+    mySelectedCaseId,
+    teammateSelectedCaseId,
+    caseSelectionReady: bothPlayersConnected && bothSelected && sameCaseSelected,
+    selectionMessage: bothPlayersConnected
+      ? (sameCaseSelected
+          ? 'Seleção sincronizada! Vocês podem iniciar.'
+          : 'Os dois jogadores devem selecionar o mesmo caso.')
+      : 'Aguardando segundo jogador para validar a seleção.',
+    caseTitle: resolvedCase?.titulo || '',
+    caseDifficulty: resolvedCase?.dificuldade || '',
+    caseDescription: resolvedCase?.descricao || '',
     phaseIndex: room.phaseIndex,
-    phaseCount: caseData.fases.length,
-    phaseTitle: phase.titulo,
-    riddle: phase.enigma,
-    roleObjective: phase.objetivo,
-    roleClue: myRole ? phase.pistasPorPapel?.[myRole.id] || 'Compartilhe suas ideias com seu parceiro.' : '',
+    phaseCount: resolvedCase?.fases.length || 0,
+    phaseTitle: phase?.titulo || '',
+    riddle: phase?.enigma || '',
+    roleObjective: phase?.objetivo || '',
+    roleClue: myRole ? phase?.pistasPorPapel?.[myRole.id] || 'Compartilhe suas ideias com seu parceiro.' : '',
     teammateRoleName: teammateRole?.nome || 'Aguardando parceiro',
     myRole,
     hintsUsed: room.hintsUsed,
@@ -104,7 +131,8 @@ io.on('connection', (socket) => {
       code,
       players: [{ id: socket.id, name: playerName || 'Jogador 1', roleId: ROLE_ORDER[0] }],
       gameStarted: false,
-      caseIndex: 0,
+      activeCaseId: null,
+      selectedCases: {},
       phaseIndex: 0,
       hintsUsed: 0,
       score: 100,
@@ -130,10 +158,36 @@ io.on('connection', (socket) => {
     return cb({ ok: true, state: getPublicState(room, socket.id) });
   });
 
+  socket.on('case:select', ({ caseId }, cb) => {
+    const room = rooms.get(socket.data.roomCode);
+    if (!room) return cb?.({ ok: false, message: 'Sala inválida.' });
+    if (room.gameStarted) return cb?.({ ok: false, message: 'Não é possível trocar o caso após iniciar.' });
+
+    const selectedCase = getCaseById(caseId);
+    if (!selectedCase) return cb?.({ ok: false, message: 'Caso inválido.' });
+
+    room.selectedCases[socket.id] = selectedCase.id;
+    emitRoomState(room);
+    return cb?.({ ok: true });
+  });
+
   socket.on('game:start', (_data, cb) => {
     const room = rooms.get(socket.data.roomCode);
     if (!room) return cb?.({ ok: false, message: 'Sala inválida.' });
+    if (room.players.length !== 2) return cb?.({ ok: false, message: 'A sala precisa de dois jogadores.' });
+
+    const firstSelection = room.selectedCases[room.players[0].id];
+    const secondSelection = room.selectedCases[room.players[1].id];
+    if (!firstSelection || !secondSelection || firstSelection !== secondSelection) {
+      return cb?.({ ok: false, message: 'Os dois jogadores precisam escolher o mesmo caso.' });
+    }
+
     room.gameStarted = true;
+    room.activeCaseId = firstSelection;
+    room.phaseIndex = 0;
+    room.hintsUsed = 0;
+    room.score = 100;
+    room.finished = false;
     emitRoomState(room);
     cb?.({ ok: true });
   });
@@ -141,7 +195,10 @@ io.on('connection', (socket) => {
   socket.on('game:hint', (_data, cb) => {
     const room = rooms.get(socket.data.roomCode);
     if (!room) return cb?.({ ok: false, message: 'Sala inválida.' });
-    const phase = cases[room.caseIndex].fases[room.phaseIndex];
+    const activeCase = getCaseById(room.activeCaseId);
+    if (!activeCase) return cb?.({ ok: false, message: 'Selecione um caso antes de jogar.' });
+
+    const phase = activeCase.fases[room.phaseIndex];
     const nextHint = phase.dicas[room.hintsUsed] || 'Sem mais dicas nesta fase.';
     room.hintsUsed += 1;
     room.score = Math.max(0, room.score - 5);
@@ -155,21 +212,19 @@ io.on('connection', (socket) => {
     const room = rooms.get(socket.data.roomCode);
     if (!room) return cb?.({ ok: false, message: 'Sala inválida.' });
 
-    const phase = cases[room.caseIndex].fases[room.phaseIndex];
+    const activeCase = getCaseById(room.activeCaseId);
+    if (!activeCase) return cb?.({ ok: false, message: 'Selecione um caso antes de jogar.' });
+
+    const phase = activeCase.fases[room.phaseIndex];
     if (sanitize(answer) === sanitize(phase.resposta)) {
       room.score = Math.min(100, room.score + 10);
-      if (room.phaseIndex + 1 < cases[room.caseIndex].fases.length) {
+      if (room.phaseIndex + 1 < activeCase.fases.length) {
         room.phaseIndex += 1;
         room.hintsUsed = 0;
         io.to(room.code).emit('game:message', 'Resposta correta! Próxima fase liberada.');
-      } else if (room.caseIndex + 1 < cases.length) {
-        room.caseIndex += 1;
-        room.phaseIndex = 0;
-        room.hintsUsed = 0;
-        io.to(room.code).emit('game:message', 'Caso concluído! Novo crime desbloqueado.');
       } else {
         room.finished = true;
-        io.to(room.code).emit('game:message', 'Parabéns! Vocês resolveram os 2 crimes.');
+        io.to(room.code).emit('game:message', 'Parabéns! Vocês resolveram o caso selecionado.');
       }
       emitRoomState(room);
       cb?.({ ok: true, correct: true });
@@ -186,6 +241,7 @@ io.on('connection', (socket) => {
     if (!roomCode || !rooms.has(roomCode)) return;
     const room = rooms.get(roomCode);
     room.players = room.players.filter((p) => p.id !== socket.id);
+    delete room.selectedCases[socket.id];
     if (room.players.length === 0) {
       rooms.delete(roomCode);
     } else {

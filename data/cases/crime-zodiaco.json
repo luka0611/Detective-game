@@ -1,0 +1,50 @@
+{
+  "id": "crime-zodiaco",
+  "titulo": "Cartas do Zodíaco: o Cifra 340",
+  "dificuldade": "difícil",
+  "descricao": "Inspirado no caso real do serial killer Zodiac. Uma nova carta criptografada ameaça revelar a próxima vítima; vocês precisam unir criptografia e reconstrução de deslocamentos para impedir o ataque.",
+  "fases": [
+    {
+      "titulo": "A Grade dos Símbolos",
+      "objetivo": "Identificar a técnica de leitura da cifra para destravar a mensagem.",
+      "enigma": "A carta tem 17 colunas e símbolos repetidos em diagonais quebradas. Qual estratégia inicial torna a leitura possível: linha reta, espiral ou leitura diagonal transposta?",
+      "pistasPorPapel": {
+        "reconstituista": "As sequências de símbolos se repetem a cada deslocamento diagonal, não horizontal.",
+        "analista": "A frequência de trigramas só se aproxima do inglês quando você reorganiza em diagonais transpostas."
+      },
+      "resposta": "leitura diagonal transposta",
+      "dicas": [
+        "A Cifra 340 só foi resolvida com rearranjo das linhas.",
+        "Procure o padrão que minimiza ruído linguístico."
+      ]
+    },
+    {
+      "titulo": "Destino Escondido",
+      "objetivo": "Extrair o local provável da ameaça cruzando texto decifrado com geografia urbana.",
+      "enigma": "Trecho decifrado: '...gas station by the school after dark...'. Três pontos possíveis: posto ao norte (fecha 21h), posto da avenida central (24h) e posto da rodovia (sem escola por perto). Qual é o alvo?",
+      "pistasPorPapel": {
+        "reconstituista": "O ataque anterior aconteceu por volta de 22h40, então o local precisa estar aberto nesse horário.",
+        "analista": "Resíduos de pólen no envelope batem com árvores ornamentais da avenida central, perto de um colégio."
+      },
+      "resposta": "posto da avenida central",
+      "dicas": [
+        "Elimine o local fechado no horário crítico.",
+        "Cruze disponibilidade com vestígio ambiental."
+      ]
+    },
+    {
+      "titulo": "A Assinatura Final",
+      "objetivo": "Confirmar autoria da carta para fechar o caso com segurança.",
+      "enigma": "A carta nova usa símbolo de mira e erro ortográfico deliberado em 'paradice', igual às mensagens históricas. Isso indica imitador ou o mesmo autor?",
+      "pistasPorPapel": {
+        "reconstituista": "A linha do tempo mostra postagem na mesma região e janela de horário de cartas autênticas do caso Zodiac.",
+        "analista": "A pressão de escrita, tinta e idiossincrasia ortográfica coincidem com padrões forenses conhecidos das cartas originais."
+      },
+      "resposta": "mesmo autor",
+      "dicas": [
+        "Pense em consistência de assinatura comportamental.",
+        "Quando contexto + forense convergem, a hipótese de imitador enfraquece."
+      ]
+    }
+  ]
+}
