@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casal Detetive LAN</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <h1>🕵️ Casal Detetive LAN</h1>
+    <p>Crie uma sala no PC e entre pelos dois celulares na mesma rede Wi‑Fi.</p>
+
+    <section id="lobby" class="card">
+      <input id="name" placeholder="Seu nome" maxlength="30" />
+      <div class="row">
+        <button id="create">Criar sala</button>
+      </div>
+      <div class="row">
+        <input id="roomCode" placeholder="Código da sala" maxlength="6" />
+        <button id="join">Entrar</button>
+      </div>
+      <p id="status"></p>
+    </section>
+
+    <section id="game" class="card hidden">
+      <h2 id="caseTitle"></h2>
+      <p id="caseDescription"></p>
+      <p><strong>Sala:</strong> <span id="code"></span> | <strong>Jogadores:</strong> <span id="players"></span></p>
+      <p><strong>Fase:</strong> <span id="phase"></span> | <strong>Pontuação:</strong> <span id="score"></span></p>
+
+      <div class="riddle">
+        <h3 id="phaseTitle"></h3>
+        <p id="riddle"></p>
+      </div>
+
+      <div class="row">
+        <input id="answer" placeholder="Digite a resposta" />
+        <button id="sendAnswer">Responder</button>
+      </div>
+      <div class="row">
+        <button id="hint">Pedir dica (-5)</button>
+        <button id="start">Iniciar jogo</button>
+      </div>
+      <p id="message"></p>
+      <div id="log" class="log"></div>
+    </section>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
