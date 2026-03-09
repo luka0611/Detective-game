@@ -2,23 +2,38 @@
   {
     "id": "crime-1",
     "titulo": "O Roubo no Ateliê",
-    "descricao": "Uma joia desapareceu de um ateliê fechado. Descubram quem pegou e onde está escondida.",
+    "descricao": "Uma joia desapareceu de um ateliê fechado. Cada papel tem metade da verdade: cruzem cronologia com vestígios.",
     "fases": [
       {
         "titulo": "Cena do Crime",
+        "objetivo": "Cruzar horários com acesso ao cofre para filtrar suspeitos.",
         "enigma": "A joia sumiu entre 20h e 21h. Três suspeitos: Ana (saiu às 19h50), Bruno (entrou às 20h40), Carla (ficou até 20h30). Quem teve oportunidade real?",
+        "pistasPorPapel": {
+          "reconstituista": "A câmera do corredor confirma: depois de 20h30, só Bruno ainda circulava perto do cofre.",
+          "analista": "Não há digitais de Ana na fechadura após 20h. O cofre foi aberto com luvas no fim da janela."
+        },
         "resposta": "bruno",
         "dicas": ["A janela de tempo começa às 20h.", "Quem não estava mais no local não podia agir."]
       },
       {
         "titulo": "Pista do Verniz",
+        "objetivo": "Comparar oportunidade com evidência física para evitar falso culpado.",
         "enigma": "Foi encontrado verniz azul na luva. Apenas um suspeito trabalhou com verniz azul naquele dia. Quem foi?",
+        "pistasPorPapel": {
+          "reconstituista": "Bruno passou a maior parte do tempo no escritório e não entrou na ala de pintura.",
+          "analista": "No laboratório, o verniz da luva combina com o lote usado por Carla às 20h20."
+        },
         "resposta": "carla",
         "dicas": ["Nem sempre oportunidade significa culpa.", "Relatório do dia: Carla finalizou quadro com verniz azul às 20h20."]
       },
       {
         "titulo": "Conclusão",
+        "objetivo": "Montar narrativa final usando as duas especialidades.",
         "enigma": "Se Bruno tinha oportunidade, mas a prova física aponta para Carla, quem roubou a joia?",
+        "pistasPorPapel": {
+          "reconstituista": "A reconstrução mostra que Carla voltou ao cofre às 20h25 com desculpa de buscar pincéis.",
+          "analista": "As microfibras da luva e da bolsa de Carla coincidem com o estojo da joia desaparecida."
+        },
         "resposta": "carla",
         "dicas": ["Use prova física como desempate.", "Oportunidade + evidência = solução."]
       }
@@ -27,23 +42,38 @@
   {
     "id": "crime-2",
     "titulo": "Mistério da Biblioteca",
-    "descricao": "Um manuscrito raro desapareceu. Vocês devem rastrear o responsável e o esconderijo.",
+    "descricao": "Um manuscrito raro desapareceu. Só resolvem ao combinar leitura de registros e análise de vestígios.",
     "fases": [
       {
         "titulo": "Registro de Entrada",
+        "objetivo": "Eliminar suspeitos pelo horário antes de analisar motivação.",
         "enigma": "Entraram Lucas às 14h, Marina às 14h15 e Otávio às 14h45. O manuscrito sumiu às 14h30. Quem não pode ser o autor?",
+        "pistasPorPapel": {
+          "reconstituista": "A catraca travou entre 14h31 e 14h44: ninguém novo entrou nesse período.",
+          "analista": "A poeira recém-movida aparece apenas na mesa usada antes de 14h30."
+        },
         "resposta": "otavio",
         "dicas": ["Compare o horário do sumiço com os registros.", "Quem chegou depois não poderia agir antes."]
       },
       {
         "titulo": "Código na Estante",
+        "objetivo": "Unir decifração de mensagem com leitura do mapa da biblioteca.",
         "enigma": "Bilhete: 'Procure onde termina o alfabeto'. Em qual seção está o manuscrito? (A-Z)",
+        "pistasPorPapel": {
+          "reconstituista": "No mapa do salão, o corredor final termina na seção Z, perto do arquivo antigo.",
+          "analista": "A tinta do bilhete é igual à usada no marcador da seção Z."
+        },
         "resposta": "z",
         "dicas": ["A charada é literal.", "A última letra do alfabeto."]
       },
       {
         "titulo": "Confissão Final",
+        "objetivo": "Fechar o caso com vínculo entre pessoa, local e prova.",
         "enigma": "Marina sabia o código da seção Z e foi vista com poeira antiga nas mãos. Quem levou o manuscrito?",
+        "pistasPorPapel": {
+          "reconstituista": "Testemunha viu Marina sair da seção Z às 14h28 com um embrulho retangular.",
+          "analista": "A poeira da seção Z encontrada nas mãos de Marina contém fibras do mesmo tecido do manuscrito."
+        },
         "resposta": "marina",
         "dicas": ["Considere conhecimento do esconderijo.", "A evidência conecta pessoa e local."]
       }

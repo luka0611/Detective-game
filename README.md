@@ -17,10 +17,15 @@ O terminal mostrará algo como `http://192.168.x.x:8080`.
 1. No PC, deixe o servidor rodando.
 2. Nos dois celulares, abra o navegador e acesse o endereço mostrado.
 3. Um jogador cria a sala, o outro entra com o código.
-4. Joguem juntos resolvendo os **2 crimes** com fases, pistas e charadas.
+4. Cada pessoa recebe um papel diferente e pistas exclusivas.
+5. Compartilhem informações para resolver os **2 crimes** com fases e charadas.
 
 ## Mecânica
 - 2 crimes, cada um com 3 fases.
+- Papéis fixos e complementares:
+  - **Reconstituidor de Cena**: foca em horários e movimentação.
+  - **Analista Forense**: foca em evidências físicas e padrões.
+- Cada fase tem uma pista exclusiva por papel + enigma compartilhado.
 - Resposta correta: +10 pontos.
 - Resposta errada: -10 pontos.
 - Pedir dica: -5 pontos.
